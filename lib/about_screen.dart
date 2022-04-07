@@ -36,7 +36,7 @@ class AboutHomeScreen extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: const FaIcon(FontAwesomeIcons.telegram),
+            leading: const FaIcon(FontAwesomeIcons.facebook),
             title: const Text('Follow us on Facebook'),
             onTap: () {
               launch(

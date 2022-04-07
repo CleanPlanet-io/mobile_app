@@ -1,4 +1,4 @@
-package io.cleanplanet.app.mobile_app
+package io.cleanplanet.app
 
 import io.flutter.embedding.android.FlutterActivity
 
