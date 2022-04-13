@@ -66,6 +66,9 @@ flutter:
     - assets/home_love_mountains.jpeg
     - assets/save_world.png
     - assets/future.jpeg
+    - assets/charles.jpg
+    - assets/sylvain.jpg
+    - assets/yannick.jpg
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

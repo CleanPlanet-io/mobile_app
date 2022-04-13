@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mobile_app/about_faq.dart';
 import 'package:mobile_app/about_screen.dart';
+import 'package:mobile_app/media_kit.dart';
 import 'package:mobile_app/ranking.dart';
 
 class DrawerMenu extends StatefulWidget {
@@ -60,6 +61,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
       onTap: () {
         var screen = const AboutPrivacy();
         var route = MaterialPageRoute(builder: (_) => screen);
+        Navigator.of(context).pop();
         Navigator.of(context).push(route);
       },
     );
@@ -72,6 +74,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
       onTap: () {
         var screen = const RankingScreen();
         var route = MaterialPageRoute(builder: (_) => screen);
+        Navigator.of(context).pop();
         Navigator.of(context).push(route);
       },
     );
@@ -82,8 +85,9 @@ class _DrawerMenuState extends State<DrawerMenu> {
       leading: const Icon(Icons.newspaper),
       title: const Text("Media Kit"),
       onTap: () {
-        var screen = const RankingScreen();
+        var screen = const MediaKitScreen();
         var route = MaterialPageRoute(builder: (_) => screen);
+        Navigator.of(context).pop();
         Navigator.of(context).push(route);
       },
     );

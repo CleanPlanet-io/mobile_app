@@ -162,7 +162,7 @@ class _MyHomePageState extends State<MyHomePage> {
       const SizedBox(height: 10),
       Text("UPLOAD IT", style: Theme.of(context).textTheme.headline6),
       Text(
-          "Upload your video or photos report on the social network - d.tube / Hive.blog / Steemit",
+          "Upload your video or photos report on the social network - d.tube / Hive.blog",
           style: Theme.of(context).textTheme.bodyLarge),
       const SizedBox(height: 10),
       Text("GET REWARDED", style: Theme.of(context).textTheme.headline6),
