@@ -65,6 +65,13 @@ class AboutHomeScreen extends StatelessWidget {
               launch('https://medium.com/@contact.cleanplanet');
             },
           ),
+          ListTile(
+            leading: const Icon(Icons.email_outlined),
+            title: const Text('Send Email'),
+            onTap: () {
+              launch('mailto://contact@cleanplanet.io');
+            },
+          ),
         ],
       ),
     );

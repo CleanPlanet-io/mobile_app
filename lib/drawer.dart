@@ -4,6 +4,7 @@ import 'package:mobile_app/about_faq.dart';
 import 'package:mobile_app/about_screen.dart';
 import 'package:mobile_app/media_kit.dart';
 import 'package:mobile_app/ranking.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DrawerMenu extends StatefulWidget {
   const DrawerMenu({Key? key}) : super(key: key);
@@ -98,9 +99,75 @@ class _DrawerMenuState extends State<DrawerMenu> {
       children: [
         _drawerHeader(context),
         _homeMenu(context),
-        _privacy(context),
         _ranking(context),
         _media(context),
+        ListTile(
+          leading: const FaIcon(FontAwesomeIcons.twitter),
+          title: const Text('Follow us on Twitter'),
+          onTap: () {
+            Navigator.of(context).pop();
+            launch(
+                'https://twitter.com/cleanplanet_?utm_source=io.cleanplanet.app');
+          },
+        ),
+        ListTile(
+          leading: const FaIcon(FontAwesomeIcons.facebook),
+          title: const Text('Follow us on Facebook'),
+          onTap: () {
+            Navigator.of(context).pop();
+            launch(
+                'https://www.facebook.com/CleanPlanett/?tn-str=k*F?utm_source=io.cleanplanet.app');
+          },
+        ),
+        ListTile(
+          leading: const FaIcon(FontAwesomeIcons.discord),
+          title: const Text('Join us on Discord'),
+          onTap: () {
+            Navigator.of(context).pop();
+            launch('https://discord.gg/7v5USHP?utm_source=io.cleanplanet.app');
+          },
+        ),
+        ListTile(
+          leading: const FaIcon(FontAwesomeIcons.instagram),
+          title: const Text('Follow us on Instagram'),
+          onTap: () {
+            Navigator.of(context).pop();
+            launch('https://www.instagram.com/cleanplanet__/');
+          },
+        ),
+        ListTile(
+          leading: const FaIcon(FontAwesomeIcons.medium),
+          title: const Text('Follow us on Medium'),
+          onTap: () {
+            Navigator.of(context).pop();
+            launch('https://medium.com/@contact.cleanplanet');
+          },
+        ),
+        ListTile(
+          leading: const FaIcon(FontAwesomeIcons.video),
+          title: const Text('Follow us on D.Tube'),
+          onTap: () {
+            Navigator.of(context).pop();
+            launch('https://d.tube/#!/c/cleanplanet');
+          },
+        ),
+        ListTile(
+          leading: const FaIcon(FontAwesomeIcons.blog),
+          title: const Text('Follow us on Hive'),
+          onTap: () {
+            Navigator.of(context).pop();
+            launch('https://hive.blog/@cleanplanet');
+          },
+        ),
+        ListTile(
+          leading: const Icon(Icons.email_outlined),
+          title: const Text('Send Email'),
+          onTap: () {
+            Navigator.of(context).pop();
+            launch('mailto://contact@cleanplanet.io');
+          },
+        ),
+        _privacy(context),
       ],
     );
   }

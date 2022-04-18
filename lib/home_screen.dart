@@ -169,6 +169,29 @@ class _MyHomePageState extends State<MyHomePage> {
       Text(
           "Get rewarded for your eco-citizen act by the vote/like of the Community!",
           style: Theme.of(context).textTheme.bodyLarge),
+      InkWell(
+        child: const Text('Open D.tube',
+            style: TextStyle(
+              decoration: TextDecoration.underline,
+              color: Colors.blue,
+              fontSize: 26,
+            )),
+        onTap: () {
+          launch('https://d.tube');
+        },
+      ),
+      const SizedBox(height: 10),
+      InkWell(
+        child: const Text('Open Hive.blog',
+            style: TextStyle(
+              decoration: TextDecoration.underline,
+              color: Colors.blue,
+              fontSize: 26,
+            )),
+        onTap: () {
+          launch('https://hive.blog');
+        },
+      ),
     ];
   }
 
