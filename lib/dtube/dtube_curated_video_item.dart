@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:mobile_app/dtube/dtube_loaded_video_item.dart';
+import 'package:mobile_app/dtube/dtube_video_details_screen.dart';
 import 'package:mobile_app/models/new_videos_feed/new_videos_feed.dart';
 
 class DTubeVideoItem extends StatefulWidget {
@@ -47,7 +48,9 @@ class _DTubeVideoItemState extends State<DTubeVideoItem> {
       return DTubeLoadedVideoItem(
           item: widget.item!,
           onTap: () {
-            // to-do - do navigation here.
+            var screen = VideoDetailsScreen(item: widget.item!);
+            var route = MaterialPageRoute(builder: (c) => screen);
+            Navigator.of(context).push(route);
           });
     } else {
       return ListTile(

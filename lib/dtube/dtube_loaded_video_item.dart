@@ -108,7 +108,9 @@ class _DTubeLoadedVideoItemState extends State<DTubeLoadedVideoItem> {
           videoInfo(),
         ],
       ),
-      onTap: () => widget.onTap,
+      onTap: () {
+        widget.onTap();
+      },
     );
   }
 }

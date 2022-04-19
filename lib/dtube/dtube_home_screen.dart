@@ -39,12 +39,13 @@ class _DTubeHomeScreenState extends State<DTubeHomeScreen> {
     return ListView.separated(
       itemBuilder: (BuildContext context, int index) {
         return DTubeLoadedVideoItem(
-            item: list[index],
-            onTap: () {
-              var screen = VideoDetailsScreen(item: list[index]);
-              var route = MaterialPageRoute(builder: (c) => screen);
-              Navigator.of(context).push(route);
-            });
+          item: list[index],
+          onTap: () {
+            var screen = VideoDetailsScreen(item: list[index]);
+            var route = MaterialPageRoute(builder: (c) => screen);
+            Navigator.of(context).push(route);
+          },
+        );
       },
       separatorBuilder: (BuildContext context, int index) {
         return const Divider(height: 0);
