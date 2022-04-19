@@ -2,7 +2,9 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:mobile_app/dtube/dtube_curated_video_item.dart';
 import 'package:mobile_app/models/history/dtube_history.dart';
+import 'package:mobile_app/models/new_videos_feed/new_videos_feed.dart';
 
 class DTubeCurationScreen extends StatefulWidget {
   const DTubeCurationScreen({Key? key}) : super(key: key);
@@ -16,6 +18,7 @@ class _DTubeCurationScreenState extends State<DTubeCurationScreen> {
   bool moreLoading = false;
   List<DTubeHistoryItemRecord> items = [];
   List<DTubeHistoryItemRecord> filteredItems = [];
+  Map<String, NewVideosResponseModelItem> map = {};
 
   @override
   void initState() {
@@ -37,6 +40,9 @@ class _DTubeCurationScreenState extends State<DTubeCurationScreen> {
       List<DTubeHistoryItemRecord> items =
           decodeStringOfDTubeHistory(responseValue);
       setState(() {
+        if (items.length < 50) {
+          hasMoreData = false;
+        }
         moreLoading = false;
         this.items += items;
         filteredItems += items.where((e) {
@@ -49,7 +55,6 @@ class _DTubeCurationScreenState extends State<DTubeCurationScreen> {
         moreLoading = false;
       });
       log(response.reasonPhrase ?? 'Status code not 200');
-      throw response.reasonPhrase ?? 'Status code not 200';
     }
   }
 
@@ -57,6 +62,11 @@ class _DTubeCurationScreenState extends State<DTubeCurationScreen> {
     return ListView.separated(
       itemBuilder: (c, i) {
         if (i == filteredItems.length) {
+          if (!hasMoreData) {
+            return const ListTile(
+              title: Text('End of Data'),
+            );
+          }
           if (moreLoading) {
             return const ListTile(
               title: Center(child: CircularProgressIndicator()),
@@ -74,9 +84,17 @@ class _DTubeCurationScreenState extends State<DTubeCurationScreen> {
             );
           }
         }
-        return ListTile(
-          title: Text(
-              '${filteredItems[i].txs.first.data.author}/${filteredItems[i].txs.first.data.link}'),
+        var author = filteredItems[i].txs.first.data.author;
+        var link = filteredItems[i].txs.first.data.link;
+        var path = '$author/$link';
+        return DTubeVideoItem(
+          path: path,
+          item: map[path],
+          result: (path, item) {
+            setState(() {
+              map[path] = item;
+            });
+          },
         );
       },
       separatorBuilder: (c, i) => const Divider(),
@@ -88,7 +106,7 @@ class _DTubeCurationScreenState extends State<DTubeCurationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Cleaning Activities - Videos'),
+        title: const Text('Curated Videos by CleanPlanet'),
       ),
       body: _listView(),
     );

@@ -118,7 +118,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
         ),
         ListTile(
           leading: const FaIcon(FontAwesomeIcons.video),
-          title: const Text('Cleaning Activities (videos)'),
+          title: const Text('Videos'),
           subtitle: const Text('Curated by CleanPlanet.io'),
           onTap: () {
             Navigator.of(context).pop();
