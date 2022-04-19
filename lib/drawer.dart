@@ -39,6 +39,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
           ],
         ),
         onTap: () {
+          Navigator.of(context).pop();
           var screen = const AboutHomeScreen();
           var route = MaterialPageRoute(builder: (_) => screen);
           Navigator.of(context).push(route);
@@ -136,11 +137,13 @@ class _DrawerMenuState extends State<DrawerMenu> {
           },
         ),
         ListTile(
-          leading: const Icon(Icons.email_outlined),
-          title: const Text('Send Email'),
+          leading: const Icon(Icons.call),
+          title: const Text('Contact Us'),
           onTap: () {
             Navigator.of(context).pop();
-            launch('mailto://contact@cleanplanet.io');
+            var screen = const AboutHomeScreen();
+            var route = MaterialPageRoute(builder: (_) => screen);
+            Navigator.of(context).push(route);
           },
         ),
         _privacy(context),
