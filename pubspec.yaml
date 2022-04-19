@@ -36,8 +36,13 @@ dependencies:
   cupertino_icons: ^1.0.2
   url_launcher: ^6.0.20
   font_awesome_flutter: ^10.1.0
-  fluttertoast: ^8.0.9
   http: ^0.13.4
+  youtube_player_iframe: ^2.2.2
+  badges: ^2.0.2
+  flutter_markdown: ^0.6.10
+  timeago: ^3.2.2
+  intl: ^0.17.0
+  better_player: ^0.0.81
 
 dev_dependencies:
   flutter_test:
@@ -71,7 +76,10 @@ flutter:
     - assets/charles.jpg
     - assets/sylvain.jpg
     - assets/yannick.jpg
-  #   - images/a_dot_ham.jpeg
+    - assets/dtube_logo.png
+    - assets/not_found_thumb.png
+    - assets/ipfs.png
+    - assets/yt.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

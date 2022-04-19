@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mobile_app/about_faq.dart';
 import 'package:mobile_app/about_screen.dart';
+import 'package:mobile_app/dtube/dtube_home_screen.dart';
 import 'package:mobile_app/media_kit.dart';
 import 'package:mobile_app/ranking.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -102,53 +103,16 @@ class _DrawerMenuState extends State<DrawerMenu> {
         _ranking(context),
         _media(context),
         ListTile(
-          leading: const FaIcon(FontAwesomeIcons.twitter),
-          title: const Text('Follow us on Twitter'),
-          onTap: () {
-            Navigator.of(context).pop();
-            launch(
-                'https://twitter.com/cleanplanet_?utm_source=io.cleanplanet.app');
-          },
-        ),
-        ListTile(
-          leading: const FaIcon(FontAwesomeIcons.facebook),
-          title: const Text('Follow us on Facebook'),
-          onTap: () {
-            Navigator.of(context).pop();
-            launch(
-                'https://www.facebook.com/CleanPlanett/?tn-str=k*F?utm_source=io.cleanplanet.app');
-          },
-        ),
-        ListTile(
-          leading: const FaIcon(FontAwesomeIcons.discord),
-          title: const Text('Join us on Discord'),
-          onTap: () {
-            Navigator.of(context).pop();
-            launch('https://discord.gg/7v5USHP?utm_source=io.cleanplanet.app');
-          },
-        ),
-        ListTile(
-          leading: const FaIcon(FontAwesomeIcons.instagram),
-          title: const Text('Follow us on Instagram'),
-          onTap: () {
-            Navigator.of(context).pop();
-            launch('https://www.instagram.com/cleanplanet__/');
-          },
-        ),
-        ListTile(
-          leading: const FaIcon(FontAwesomeIcons.medium),
-          title: const Text('Follow us on Medium'),
-          onTap: () {
-            Navigator.of(context).pop();
-            launch('https://medium.com/@contact.cleanplanet');
-          },
-        ),
-        ListTile(
           leading: const FaIcon(FontAwesomeIcons.video),
-          title: const Text('Follow us on D.Tube'),
+          title: const Text('D.Tube Channel'),
           onTap: () {
             Navigator.of(context).pop();
-            launch('https://d.tube/#!/c/cleanplanet');
+            var screen = const DTubeHomeScreen(
+              title: 'CleanPlanet DTube Channel',
+              path: 'blog/cleanplanet',
+            );
+            var route = MaterialPageRoute(builder: (c) => screen);
+            Navigator.of(context).push(route);
           },
         ),
         ListTile(
