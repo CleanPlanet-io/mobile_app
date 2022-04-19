@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:mobile_app/dtube/dtube_vide_details_screen.dart';
+import 'package:mobile_app/dtube/dtube_video_details_screen.dart';
 import 'package:mobile_app/models/new_videos_feed/new_videos_feed.dart';
 import 'package:timeago/timeago.dart' as timeago;
 

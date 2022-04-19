@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mobile_app/about_faq.dart';
 import 'package:mobile_app/about_screen.dart';
+import 'package:mobile_app/dtube/dtube_curation_screen.dart';
 import 'package:mobile_app/dtube/dtube_home_screen.dart';
 import 'package:mobile_app/media_kit.dart';
 import 'package:mobile_app/ranking.dart';
@@ -111,6 +112,17 @@ class _DrawerMenuState extends State<DrawerMenu> {
               title: 'CleanPlanet DTube Channel',
               path: 'blog/cleanplanet',
             );
+            var route = MaterialPageRoute(builder: (c) => screen);
+            Navigator.of(context).push(route);
+          },
+        ),
+        ListTile(
+          leading: const FaIcon(FontAwesomeIcons.video),
+          title: const Text('Cleaning Activities (videos)'),
+          subtitle: const Text('Curated by CleanPlanet.io'),
+          onTap: () {
+            Navigator.of(context).pop();
+            var screen = const DTubeCurationScreen();
             var route = MaterialPageRoute(builder: (c) => screen);
             Navigator.of(context).push(route);
           },
