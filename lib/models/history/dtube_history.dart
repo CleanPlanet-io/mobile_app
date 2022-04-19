@@ -2,51 +2,45 @@ import 'dart:convert';
 
 import 'package:mobile_app/models/new_videos_feed/safe_convert.dart';
 
-List<DTubeHistoryItem> decodeStringOfDTubeHistory(String jsonString) {
+List<DTubeHistoryItemRecord> decodeStringOfDTubeHistory(String jsonString) {
   final jsonList = json.decode(jsonString) as List;
-  final list = jsonList.map((e) => DTubeHistoryItem.fromJson(e)).toList();
+  final list = jsonList.map((e) => DTubeHistoryItemRecord.fromJson(e)).toList();
   return list;
   //.where((e) => e.type == 19).toList();
+}
+
+class DTubeHistoryItemRecord {
+  final List<DTubeHistoryItem> txs;
+
+  DTubeHistoryItemRecord({
+    required this.txs,
+  });
+
+  factory DTubeHistoryItemRecord.fromJson(Map<String, dynamic>? json) {
+    var array = json?['txs'] as List<dynamic>? ?? [];
+    var mappedArray = array.map((e) => DTubeHistoryItem.fromJson(e));
+    return DTubeHistoryItemRecord(txs: mappedArray.toList());
+  }
 }
 
 class DTubeHistoryItem {
   final int type;
   final DTubeHistoryData data;
-  final String sender;
-  final int ts;
-  final String hash;
-  final String signature;
-  final int includedInBlock;
 
   DTubeHistoryItem({
-    this.type = 0,
+    required this.type,
     required this.data,
-    this.sender = "",
-    this.ts = 0,
-    this.hash = "",
-    this.signature = "",
-    this.includedInBlock = 0,
   });
 
   factory DTubeHistoryItem.fromJson(Map<String, dynamic>? json) =>
       DTubeHistoryItem(
         type: asInt(json, 'type'),
         data: DTubeHistoryData.fromJson(asMap(json, 'data')),
-        sender: asString(json, 'sender'),
-        ts: asInt(json, 'ts'),
-        hash: asString(json, 'hash'),
-        signature: asString(json, 'signature'),
-        includedInBlock: asInt(json, 'includedInBlock'),
       );
 
   Map<String, dynamic> toJson() => {
         'type': type,
         'data': data.toJson(),
-        'sender': sender,
-        'ts': ts,
-        'hash': hash,
-        'signature': signature,
-        'includedInBlock': includedInBlock,
       };
 }
 

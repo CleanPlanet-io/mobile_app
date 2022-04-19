@@ -14,7 +14,8 @@ class DTubeCurationScreen extends StatefulWidget {
 class _DTubeCurationScreenState extends State<DTubeCurationScreen> {
   bool hasMoreData = true;
   bool moreLoading = false;
-  List<DTubeHistoryItem> items = [];
+  List<DTubeHistoryItemRecord> items = [];
+  List<DTubeHistoryItemRecord> filteredItems = [];
 
   @override
   void initState() {
@@ -33,10 +34,15 @@ class _DTubeCurationScreenState extends State<DTubeCurationScreen> {
     http.StreamedResponse response = await request.send();
     if (response.statusCode == 200) {
       var responseValue = await response.stream.bytesToString();
-      List<DTubeHistoryItem> items = decodeStringOfDTubeHistory(responseValue);
+      List<DTubeHistoryItemRecord> items =
+          decodeStringOfDTubeHistory(responseValue);
       setState(() {
         moreLoading = false;
         this.items += items;
+        filteredItems += items.where((e) {
+          if (e.txs.isEmpty) return false;
+          return e.txs.first.type == 19;
+        }).toList();
       });
     } else {
       setState(() {
@@ -48,7 +54,6 @@ class _DTubeCurationScreenState extends State<DTubeCurationScreen> {
   }
 
   Widget _listView() {
-    var filteredItems = items.where((e) => e.type == 19).toList();
     return ListView.separated(
       itemBuilder: (c, i) {
         if (i == filteredItems.length) {
@@ -60,7 +65,9 @@ class _DTubeCurationScreenState extends State<DTubeCurationScreen> {
             return ListTile(
               title: Center(
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    loadNextPage();
+                  },
                   child: const Text('Load More'),
                 ),
               ),
@@ -69,7 +76,7 @@ class _DTubeCurationScreenState extends State<DTubeCurationScreen> {
         }
         return ListTile(
           title: Text(
-              '${filteredItems[i].data.author}/${filteredItems[i].data.link}'),
+              '${filteredItems[i].txs.first.data.author}/${filteredItems[i].txs.first.data.link}'),
         );
       },
       separatorBuilder: (c, i) => const Divider(),
