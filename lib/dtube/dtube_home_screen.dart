@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:mobile_app/drawer.dart';
 import 'package:mobile_app/dtube/dtube_loaded_video_item.dart';
 import 'package:mobile_app/dtube/dtube_video_details_screen.dart';
 import 'package:mobile_app/models/new_videos_feed/new_videos_feed.dart';
@@ -93,6 +94,7 @@ class _DTubeHomeScreenState extends State<DTubeHomeScreen> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
+      drawer: const DrawerMenu(),
       body: body(),
     );
   }

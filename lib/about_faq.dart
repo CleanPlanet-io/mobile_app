@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_app/drawer.dart';
 
 class ListElementPair {
   String title;
@@ -50,6 +51,7 @@ class AboutPrivacy extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Privacy Policy'),
       ),
+      drawer: const DrawerMenu(),
       body: ListView.separated(
           itemBuilder: (c, i) {
             return ListTile(

@@ -4,6 +4,7 @@ import 'package:mobile_app/about_faq.dart';
 import 'package:mobile_app/about_screen.dart';
 import 'package:mobile_app/dtube/dtube_curation_screen.dart';
 import 'package:mobile_app/dtube/dtube_home_screen.dart';
+import 'package:mobile_app/home_screen.dart';
 import 'package:mobile_app/media_kit.dart';
 import 'package:mobile_app/ranking.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -42,7 +43,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
           Navigator.of(context).pop();
           var screen = const AboutHomeScreen();
           var route = MaterialPageRoute(builder: (_) => screen);
-          Navigator.of(context).push(route);
+          Navigator.of(context).pushReplacement(route);
         },
       ),
     );
@@ -53,7 +54,10 @@ class _DrawerMenuState extends State<DrawerMenu> {
       leading: const Icon(Icons.home),
       title: const Text("Home"),
       onTap: () {
-        // TO-DO: do something here
+        Navigator.of(context).pop();
+        var screen = const MyHomePage();
+        var route = MaterialPageRoute(builder: (_) => screen);
+        Navigator.of(context).pushReplacement(route);
       },
     );
   }
@@ -66,7 +70,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
         var screen = const AboutPrivacy();
         var route = MaterialPageRoute(builder: (_) => screen);
         Navigator.of(context).pop();
-        Navigator.of(context).push(route);
+        Navigator.of(context).pushReplacement(route);
       },
     );
   }
@@ -79,7 +83,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
         var screen = const RankingScreen();
         var route = MaterialPageRoute(builder: (_) => screen);
         Navigator.of(context).pop();
-        Navigator.of(context).push(route);
+        Navigator.of(context).pushReplacement(route);
       },
     );
   }
@@ -92,7 +96,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
         var screen = const MediaKitScreen();
         var route = MaterialPageRoute(builder: (_) => screen);
         Navigator.of(context).pop();
-        Navigator.of(context).push(route);
+        Navigator.of(context).pushReplacement(route);
       },
     );
   }
@@ -114,7 +118,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
               path: 'blog/cleanplanet',
             );
             var route = MaterialPageRoute(builder: (c) => screen);
-            Navigator.of(context).push(route);
+            Navigator.of(context).pushReplacement(route);
           },
         ),
         ListTile(
@@ -125,7 +129,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
             Navigator.of(context).pop();
             var screen = const DTubeCurationScreen();
             var route = MaterialPageRoute(builder: (c) => screen);
-            Navigator.of(context).push(route);
+            Navigator.of(context).pushReplacement(route);
           },
         ),
         ListTile(
@@ -143,7 +147,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
             Navigator.of(context).pop();
             var screen = const AboutHomeScreen();
             var route = MaterialPageRoute(builder: (_) => screen);
-            Navigator.of(context).push(route);
+            Navigator.of(context).pushReplacement(route);
           },
         ),
         _privacy(context),

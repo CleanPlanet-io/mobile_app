@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:mobile_app/drawer.dart';
 import 'package:mobile_app/dtube/dtube_curated_video_item.dart';
 import 'package:mobile_app/models/history/dtube_history.dart';
 import 'package:mobile_app/models/new_videos_feed/new_videos_feed.dart';
@@ -108,6 +109,7 @@ class _DTubeCurationScreenState extends State<DTubeCurationScreen> {
       appBar: AppBar(
         title: const Text('Curated Videos by CleanPlanet'),
       ),
+      drawer: const DrawerMenu(),
       body: _listView(),
     );
   }

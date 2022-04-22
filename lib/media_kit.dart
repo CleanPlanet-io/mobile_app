@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_app/drawer.dart';
 
 class MediaKitScreen extends StatefulWidget {
   const MediaKitScreen({Key? key}) : super(key: key);
@@ -141,6 +142,7 @@ class _MediaKitScreenState extends State<MediaKitScreen> {
       appBar: AppBar(
         title: const Text('Media Kit'),
       ),
+      drawer: const DrawerMenu(),
       body: SingleChildScrollView(
         child: Container(
           margin: const EdgeInsets.all(10),

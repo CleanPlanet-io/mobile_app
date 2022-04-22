@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:mobile_app/drawer.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AboutHomeScreen extends StatelessWidget {
@@ -25,6 +26,7 @@ class AboutHomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: getAppBar(),
+      drawer: const DrawerMenu(),
       body: ListView(
         children: [
           ListTile(

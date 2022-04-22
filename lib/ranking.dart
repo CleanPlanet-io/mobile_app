@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:mobile_app/drawer.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class RankingScreen extends StatefulWidget {
@@ -124,6 +125,7 @@ class _RankingScreenState extends State<RankingScreen> {
       appBar: AppBar(
         title: const Text('Ranking'),
       ),
+      drawer: const DrawerMenu(),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(10),
         child: Column(
