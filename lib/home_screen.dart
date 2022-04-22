@@ -242,11 +242,6 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: getAppBar(),
       body: getBody(context),
       drawer: const DrawerMenu(),
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: _incrementCounter,
-      //   tooltip: 'Increment',
-      //   child: const Icon(Icons.add),
-      // ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }

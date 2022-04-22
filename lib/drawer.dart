@@ -4,6 +4,7 @@ import 'package:mobile_app/about_faq.dart';
 import 'package:mobile_app/about_screen.dart';
 import 'package:mobile_app/dtube/dtube_curation_screen.dart';
 import 'package:mobile_app/dtube/dtube_home_screen.dart';
+import 'package:mobile_app/hive/hive_delegators.dart';
 import 'package:mobile_app/home_screen.dart';
 import 'package:mobile_app/media_kit.dart';
 import 'package:mobile_app/ranking.dart';
@@ -106,8 +107,6 @@ class _DrawerMenuState extends State<DrawerMenu> {
       children: [
         _drawerHeader(context),
         _homeMenu(context),
-        _ranking(context),
-        _media(context),
         ListTile(
           leading: const FaIcon(FontAwesomeIcons.video),
           title: const Text('D.Tube Channel'),
@@ -133,6 +132,16 @@ class _DrawerMenuState extends State<DrawerMenu> {
           },
         ),
         ListTile(
+          leading: const FaIcon(FontAwesomeIcons.circleDollarToSlot),
+          title: const Text('Hive Delegators'),
+          onTap: () {
+            Navigator.of(context).pop();
+            var screen = const HiveDelegators();
+            var route = MaterialPageRoute(builder: (c) => screen);
+            Navigator.of(context).pushReplacement(route);
+          },
+        ),
+        ListTile(
           leading: const FaIcon(FontAwesomeIcons.blog),
           title: const Text('Follow us on Hive'),
           onTap: () {
@@ -140,6 +149,8 @@ class _DrawerMenuState extends State<DrawerMenu> {
             launch('https://hive.blog/@cleanplanet');
           },
         ),
+        _ranking(context),
+        _media(context),
         ListTile(
           leading: const Icon(Icons.call),
           title: const Text('Contact Us'),
