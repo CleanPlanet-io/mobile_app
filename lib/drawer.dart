@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mobile_app/about_faq.dart';
 import 'package:mobile_app/about_screen.dart';
-import 'package:mobile_app/dtube/dtube_curation_screen.dart';
 import 'package:mobile_app/dtube/dtube_home_screen.dart';
-import 'package:mobile_app/hive/hive_delegators.dart';
+import 'package:mobile_app/hive/hive_screen.dart';
 import 'package:mobile_app/home_screen.dart';
 import 'package:mobile_app/media_kit.dart';
 import 'package:mobile_app/ranking.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class DrawerMenu extends StatefulWidget {
   const DrawerMenu({Key? key}) : super(key: key);
@@ -109,7 +107,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
         _homeMenu(context),
         ListTile(
           leading: const FaIcon(FontAwesomeIcons.video),
-          title: const Text('D.Tube Channel'),
+          title: const Text('CleanPlanet - D.Tube'),
           onTap: () {
             Navigator.of(context).pop();
             var screen = const DTubeHomeScreen(
@@ -121,32 +119,13 @@ class _DrawerMenuState extends State<DrawerMenu> {
           },
         ),
         ListTile(
-          leading: const FaIcon(FontAwesomeIcons.video),
-          title: const Text('Videos'),
-          subtitle: const Text('Curated by CleanPlanet.io'),
-          onTap: () {
-            Navigator.of(context).pop();
-            var screen = const DTubeCurationScreen();
-            var route = MaterialPageRoute(builder: (c) => screen);
-            Navigator.of(context).pushReplacement(route);
-          },
-        ),
-        ListTile(
-          leading: const FaIcon(FontAwesomeIcons.circleDollarToSlot),
-          title: const Text('Hive Delegators'),
-          onTap: () {
-            Navigator.of(context).pop();
-            var screen = const HiveDelegators();
-            var route = MaterialPageRoute(builder: (c) => screen);
-            Navigator.of(context).pushReplacement(route);
-          },
-        ),
-        ListTile(
           leading: const FaIcon(FontAwesomeIcons.blog),
-          title: const Text('Follow us on Hive'),
+          title: const Text('CleanPlanet - Hive'),
           onTap: () {
             Navigator.of(context).pop();
-            launch('https://hive.blog/@cleanplanet');
+            var screen = const HiveScreen();
+            var route = MaterialPageRoute(builder: (c) => screen);
+            Navigator.of(context).pushReplacement(route);
           },
         ),
         _ranking(context),

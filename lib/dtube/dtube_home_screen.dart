@@ -3,8 +3,10 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:mobile_app/drawer.dart';
+import 'package:mobile_app/dtube/dtube_curated_video_item.dart';
 import 'package:mobile_app/dtube/dtube_loaded_video_item.dart';
 import 'package:mobile_app/dtube/dtube_video_details_screen.dart';
+import 'package:mobile_app/models/history/dtube_history.dart';
 import 'package:mobile_app/models/new_videos_feed/new_videos_feed.dart';
 
 class DTubeHomeScreen extends StatefulWidget {
@@ -20,7 +22,109 @@ class DTubeHomeScreen extends StatefulWidget {
   State<DTubeHomeScreen> createState() => _DTubeHomeScreenState();
 }
 
-class _DTubeHomeScreenState extends State<DTubeHomeScreen> {
+class _DTubeHomeScreenState extends State<DTubeHomeScreen>
+    with SingleTickerProviderStateMixin {
+  late TabController _controller;
+  static const List<Tab> myTabs = <Tab>[
+    Tab(child: Text('Channel')),
+    Tab(child: Text('Curated Videos')),
+  ];
+
+  bool hasMoreData = true;
+  bool moreLoading = false;
+  List<DTubeHistoryItemRecord> items = [];
+  List<DTubeHistoryItemRecord> filteredItems = [];
+  Map<String, NewVideosResponseModelItem> map = {};
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = TabController(length: myTabs.length, vsync: this);
+    loadNextPage();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  void loadNextPage() async {
+    if (!hasMoreData) return;
+    setState(() {
+      moreLoading = true;
+    });
+    var uri = Uri.parse(
+        'https://avalon.d.tube/history/cleanplanet/0/${items.length}');
+    var request = http.Request('GET', uri);
+    http.StreamedResponse response = await request.send();
+    if (response.statusCode == 200) {
+      var responseValue = await response.stream.bytesToString();
+      List<DTubeHistoryItemRecord> items =
+          decodeStringOfDTubeHistory(responseValue);
+      setState(() {
+        if (items.length < 50) {
+          hasMoreData = false;
+        }
+        moreLoading = false;
+        this.items += items;
+        filteredItems += items.where((e) {
+          if (e.txs.isEmpty) return false;
+          return e.txs.first.type == 19;
+        }).toList();
+      });
+    } else {
+      setState(() {
+        moreLoading = false;
+      });
+      log(response.reasonPhrase ?? 'Status code not 200');
+    }
+  }
+
+  Widget _listView() {
+    return ListView.separated(
+      itemBuilder: (c, i) {
+        if (i == filteredItems.length) {
+          if (!hasMoreData) {
+            return const ListTile(
+              title: Text('End of Data'),
+            );
+          }
+          if (moreLoading) {
+            return const ListTile(
+              title: Center(child: CircularProgressIndicator()),
+            );
+          } else {
+            return ListTile(
+              title: Center(
+                child: ElevatedButton(
+                  onPressed: () {
+                    loadNextPage();
+                  },
+                  child: const Text('Load More'),
+                ),
+              ),
+            );
+          }
+        }
+        var author = filteredItems[i].txs.first.data.author;
+        var link = filteredItems[i].txs.first.data.link;
+        var path = '$author/$link';
+        return DTubeVideoItem(
+          path: path,
+          item: map[path],
+          result: (path, item) {
+            setState(() {
+              map[path] = item;
+            });
+          },
+        );
+      },
+      separatorBuilder: (c, i) => const Divider(),
+      itemCount: filteredItems.length + 1,
+    );
+  }
+
   Future<List<NewVideosResponseModelItem>> loadNewVideos() async {
     var uri = Uri.parse('https://avalon.d.tube/${widget.path}');
     var request = http.Request('GET', uri);
@@ -92,10 +196,21 @@ class _DTubeHomeScreenState extends State<DTubeHomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: const Text('Clean Planet - D.Tube'),
+        bottom: TabBar(
+          isScrollable: true,
+          controller: _controller,
+          tabs: myTabs,
+        ),
       ),
       drawer: const DrawerMenu(),
-      body: body(),
+      body: TabBarView(
+        controller: _controller,
+        children: [
+          body(),
+          _listView(),
+        ],
+      ),
     );
   }
 }

@@ -254,7 +254,7 @@ class _VideoDetailsScreenState extends State<VideoDetailsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Video Details'),
+        title: Text(widget.item.jsonObject.title),
       ),
       body: SingleChildScrollView(
         child: Column(
