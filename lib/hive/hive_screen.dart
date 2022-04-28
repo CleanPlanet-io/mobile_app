@@ -26,8 +26,10 @@ class _HiveScreenState extends State<HiveScreen>
 
   List<HiveDelegatorItem> items = [];
   List<HivePostsResponseResultItem> posts = [];
+  List<HivePostsResponseResultItem> community = [];
   var isLoadingDelegators = false;
   var isLoadingPosts = false;
+  var isLoadingCommunity = false;
 
   @override
   void initState() {
@@ -35,6 +37,7 @@ class _HiveScreenState extends State<HiveScreen>
     _controller = TabController(length: myTabs.length, vsync: this);
     loadDelegators();
     loadPosts();
+    loadCommunity();
   }
 
   @override
@@ -67,6 +70,34 @@ class _HiveScreenState extends State<HiveScreen>
       setState(() {
         isLoadingPosts = false;
         posts = [];
+      });
+    }
+  }
+
+  void loadCommunity() async {
+    var request = http.Request('POST', Uri.parse('https://api.hive.blog/'));
+    request.body = json.encode({
+      "id": 8,
+      "jsonrpc": "2.0",
+      "method": "bridge.get_ranked_posts",
+      "params": {"sort": "trending", "tag": "hive-150210", "observer": ""}
+    });
+    setState(() {
+      isLoadingCommunity = true;
+    });
+    http.StreamedResponse response = await request.send();
+    if (response.statusCode == 200) {
+      var string = await response.stream.bytesToString();
+      var data = HivePostsResponse.fromJsonString(string);
+      setState(() {
+        isLoadingCommunity = false;
+        community = data.result;
+      });
+    } else {
+      _showError(response.reasonPhrase.toString());
+      setState(() {
+        isLoadingCommunity = false;
+        community = [];
       });
     }
   }
@@ -216,6 +247,40 @@ class _HiveScreenState extends State<HiveScreen>
     );
   }
 
+  Widget getBodyForCommunity(BuildContext context) {
+    if (isLoadingCommunity) {
+      return const Center(child: CircularProgressIndicator());
+    }
+    return ListView.separated(
+      itemBuilder: (c, i) {
+        var url = community[i].jsonMetadata.image.isEmpty
+            ? 'https://images.hive.blog/u/${community[i].author}/avatar'
+            : community[i].jsonMetadata.image.first;
+        return ListTile(
+          leading: SizedBox(
+            height: 100,
+            width: 70,
+            child: CircleAvatar(
+              backgroundImage: NetworkImage(url),
+              backgroundColor: Colors.transparent,
+              radius: 100,
+            ),
+          ),
+          title: Text(community[i].title),
+          subtitle: Text(community[i].jsonMetadata.description),
+          trailing: Text('\$ ${community[i].payout.toStringAsFixed(3)}'),
+          onTap: () {
+            var screen = HivePostScreen(item: community[i]);
+            var route = MaterialPageRoute(builder: (c) => screen);
+            Navigator.of(context).push(route);
+          },
+        );
+      },
+      separatorBuilder: (c, i) => const Divider(height: 0),
+      itemCount: community.length,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -226,7 +291,7 @@ class _HiveScreenState extends State<HiveScreen>
         children: [
           getBodyForDelegators(context),
           getBodyForPosts(context),
-          const Text('Curated'),
+          getBodyForCommunity(context),
         ],
       ),
     );
