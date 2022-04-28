@@ -25,18 +25,25 @@ class HiveDelegatorsResponseItem {
   factory HiveDelegatorsResponseItem.fromJson(Map<String, dynamic>? json) =>
       HiveDelegatorsResponseItem(
         delegator: asString(json, 'delegator'),
-        vestingShares: asDouble(json, 'vesting_shares'),
-        delegationDate: asString(json, 'delegation_date'),
+        vestingShares: double.parse(
+            asString(json, 'vesting_shares').replaceAll(" VESTS", "")),
+        delegationDate: asString(json, 'timestamp'),
       );
 
   static List<HiveDelegatorsResponseItem> fromJsonString(String jsonStr) {
-    final jsonList = json.decode(jsonStr) as List;
+    final jsonData = json.decode(jsonStr);
+    final jsonList = jsonData['list'] as List;
     return jsonList.map((e) => HiveDelegatorsResponseItem.fromJson(e)).toList();
+    // DO NOT DELETE FOLLOWING LINES
+    // Use following lines in case ecency's api goes down.
+    // following logic is for hive-keychain api
+    // final jsonList = json.decode(jsonStr) as List;
+    // return jsonList.map((e) => HiveDelegatorsResponseItem.fromJson(e)).toList();
   }
 
   Map<String, dynamic> toJson() => {
         'delegator': delegator,
         'vesting_shares': vestingShares,
-        'delegation_date': delegationDate,
+        'timestamp': delegationDate,
       };
 }

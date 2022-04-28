@@ -73,7 +73,9 @@ class _HiveScreenState extends State<HiveScreen>
 
   void loadDelegators() async {
     var uri =
-        Uri.parse('https://api.hive-keychain.com/hive/delegators/cleanplanet');
+        // Uri.parse('https://api.hive-keychain.com/hive/delegators/cleanplanet');
+        Uri.parse(
+            'https://ecency.com/private-api/received-vesting/cleanplanet');
     var request = http.Request('GET', uri);
     setState(() {
       isLoadingDelegators = true;
@@ -203,8 +205,7 @@ class _HiveScreenState extends State<HiveScreen>
           subtitle: Text(posts[i].jsonMetadata.description),
           trailing: Text('\$ ${posts[i].payout.toStringAsFixed(3)}'),
           onTap: () {
-            var screen =
-                HivePostScreen(title: posts[i].title, markDown: posts[i].body);
+            var screen = HivePostScreen(item: posts[i]);
             var route = MaterialPageRoute(builder: (c) => screen);
             Navigator.of(context).push(route);
           },
