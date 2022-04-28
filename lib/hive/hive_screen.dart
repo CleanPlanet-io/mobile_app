@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:mobile_app/drawer.dart';
+import 'package:mobile_app/hive/hive_post_screen.dart';
 import 'package:mobile_app/models/hive/hive_delegators_response.dart';
 import 'package:mobile_app/models/hive/hive_finance_response.dart';
 import 'package:mobile_app/models/hive/hive_posts.dart';
@@ -201,10 +202,16 @@ class _HiveScreenState extends State<HiveScreen>
           title: Text(posts[i].title),
           subtitle: Text(posts[i].jsonMetadata.description),
           trailing: Text('\$ ${posts[i].payout.toStringAsFixed(3)}'),
+          onTap: () {
+            var screen =
+                HivePostScreen(title: posts[i].title, markDown: posts[i].body);
+            var route = MaterialPageRoute(builder: (c) => screen);
+            Navigator.of(context).push(route);
+          },
         );
       },
       separatorBuilder: (c, i) => const Divider(height: 0),
-      itemCount: items.length,
+      itemCount: posts.length,
     );
   }
 
@@ -218,7 +225,7 @@ class _HiveScreenState extends State<HiveScreen>
         children: [
           getBodyForDelegators(context),
           getBodyForPosts(context),
-          getBodyForDelegators(context)
+          const Text('Curated'),
         ],
       ),
     );
