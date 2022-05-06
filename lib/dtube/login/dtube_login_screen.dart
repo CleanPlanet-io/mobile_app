@@ -14,7 +14,7 @@ class DTubeLoginScreen extends StatefulWidget {
 
 class _DTubeLoginScreenState extends State<DTubeLoginScreen> {
   var isLoading = false;
-  static const platform = MethodChannel('com.sagar.dtube/auth');
+  static const platform = MethodChannel('io.cleanplanet.app/auth');
   var username = '';
   var key = '';
 
@@ -22,11 +22,12 @@ class _DTubeLoginScreenState extends State<DTubeLoginScreen> {
   final storage = const FlutterSecureStorage();
 
   void onLoginTapped() async {
+    var currentValue = Provider.of<CleanPlanetAppData?>(context, listen: false);
     setState(() {
       isLoading = true;
     });
     try {
-      final String result = await platform.invokeMethod('validate', {
+      final String result = await platform.invokeMethod('validateDTube', {
         'username': username,
         'key': key,
       });
@@ -35,13 +36,12 @@ class _DTubeLoginScreenState extends State<DTubeLoginScreen> {
         debugPrint("Successful login");
         await storage.write(key: 'dUsername', value: username);
         await storage.write(key: 'dKey', value: key);
-        var currentValue = Provider.of<CleanPlanetAppData>(context);
         var newValue = CleanPlanetAppData(
           dTubeUserData: DTubeUserData(
             key: key,
             username: username,
           ),
-          hiveUserData: currentValue.hiveUserData,
+          hiveUserData: currentValue?.hiveUserData,
         );
         CleanPlanetAppData.updateUserData(newValue);
         Navigator.of(context).pop();

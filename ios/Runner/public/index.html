@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="description" content="Sagar DTube" />
+    <title>Sagar DTube</title>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <script src="https://unpkg.com/javalon/bin/javalon.min.js"></script>
+    <script>
+      function validateDTubeKey(username, key) {
+        javalon.getAccount(username, (err, account) => {
+          var messageToPost = null;
+          if (err != null) {
+            console.log("ERRORRRR Error: ", err);
+            messageToPost = {
+              type: "validateDTubeKey",
+              valid: false,
+              username: username,
+              key: key,
+              error: err.message,
+            };
+          } else {
+            var keyPub = javalon.privToPub(key);
+            var accountPubKeys = account.keys.map(function (e) {
+              return e.pub;
+            });
+            console.log("accountPubKeys are ", accountPubKeys);
+            if (account.pub == keyPub || accountPubKeys.includes(keyPub)) {
+              console.log("valid key ", keyPub);
+              messageToPost = {
+                type: "validateDTubeKey",
+                valid: true,
+                username: username,
+                key: key,
+                error: "",
+              };
+            } else {
+              messageToPost = {
+                type: "validateDTubeKey",
+                valid: false,
+                username: username,
+                key: key,
+                error: "Invalid Key",
+              };
+            }
+          }
+          window.webkit.messageHandlers.cleanplanet.postMessage(messageToPost);
+        });
+      }
+    </script>
+  </body>
+</html>

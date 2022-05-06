@@ -198,7 +198,7 @@ class _DTubeHomeScreenState extends State<DTubeHomeScreen>
 
   @override
   Widget build(BuildContext context) {
-    var appData = Provider.of<CleanPlanetAppData>(context);
+    var appData = Provider.of<CleanPlanetAppData?>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Clean Planet - D.Tube'),
@@ -208,7 +208,7 @@ class _DTubeHomeScreenState extends State<DTubeHomeScreen>
           tabs: myTabs,
         ),
         actions: [
-          appData.dTubeUserData == null
+          appData?.dTubeUserData == null
               ? IconButton(
                   onPressed: () {
                     var screen = const DTubeLoginScreen();
@@ -219,8 +219,8 @@ class _DTubeHomeScreenState extends State<DTubeHomeScreen>
                 )
               : IconButton(
                   onPressed: () {
-                    var screen =
-                        MyChannelScreen(title: appData.dTubeUserData!.username);
+                    var screen = MyChannelScreen(
+                        title: appData!.dTubeUserData!.username);
                     Navigator.of(context)
                         .push(MaterialPageRoute(builder: (c) => screen));
                   },

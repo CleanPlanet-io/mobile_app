@@ -22,6 +22,12 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
+    CleanPlanetAppData.updateUserData(
+      CleanPlanetAppData(
+        hiveUserData: null,
+        dTubeUserData: null,
+      ),
+    );
     loadData();
   }
 

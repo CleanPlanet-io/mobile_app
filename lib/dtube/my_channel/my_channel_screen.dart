@@ -79,10 +79,11 @@ class _MyChannelScreenState extends State<MyChannelScreen> {
               const storage = FlutterSecureStorage();
               await storage.delete(key: 'dUsername');
               await storage.delete(key: 'dKey');
-              var currentValue = Provider.of<CleanPlanetAppData>(context);
+              var currentValue =
+                  Provider.of<CleanPlanetAppData?>(context, listen: false);
               var newValue = CleanPlanetAppData(
                 dTubeUserData: null,
-                hiveUserData: currentValue.hiveUserData,
+                hiveUserData: currentValue?.hiveUserData,
               );
               CleanPlanetAppData.updateUserData(newValue);
               Navigator.of(context).pop();
