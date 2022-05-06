@@ -16,12 +16,15 @@ class HivePostScreen extends StatefulWidget {
 
 class _HivePostScreenState extends State<HivePostScreen> {
   Widget _body() {
-    return Markdown(
-      padding: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
-      data: widget.item.body, //Utilities.removeAllHtmlTags(markDown),
-      onTapLink: (text, url, title) {
-        launchUrl(Uri.parse(url ?? 'https://google.com'));
-      },
+    return Container(
+      margin: const EdgeInsets.all(10),
+      child: Markdown(
+        padding: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
+        data: widget.item.body,
+        onTapLink: (text, url, title) {
+          launchUrl(Uri.parse(url ?? 'https://google.com'));
+        },
+      ),
     );
   }
 

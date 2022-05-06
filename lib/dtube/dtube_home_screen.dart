@@ -2,12 +2,16 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:mobile_app/app_data/clean_planet_app_data.dart';
 import 'package:mobile_app/drawer.dart';
 import 'package:mobile_app/dtube/dtube_curated_video_item.dart';
 import 'package:mobile_app/dtube/dtube_loaded_video_item.dart';
 import 'package:mobile_app/dtube/dtube_video_details_screen.dart';
+import 'package:mobile_app/dtube/login/dtube_login_screen.dart';
+import 'package:mobile_app/dtube/my_channel/my_channel_screen.dart';
 import 'package:mobile_app/models/history/dtube_history.dart';
 import 'package:mobile_app/models/new_videos_feed/new_videos_feed.dart';
+import 'package:provider/provider.dart';
 
 class DTubeHomeScreen extends StatefulWidget {
   const DTubeHomeScreen({
@@ -194,6 +198,7 @@ class _DTubeHomeScreenState extends State<DTubeHomeScreen>
 
   @override
   Widget build(BuildContext context) {
+    var appData = Provider.of<CleanPlanetAppData>(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Clean Planet - D.Tube'),
@@ -202,6 +207,26 @@ class _DTubeHomeScreenState extends State<DTubeHomeScreen>
           controller: _controller,
           tabs: myTabs,
         ),
+        actions: [
+          appData.dTubeUserData == null
+              ? IconButton(
+                  onPressed: () {
+                    var screen = const DTubeLoginScreen();
+                    Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (c) => screen));
+                  },
+                  icon: const Icon(Icons.login),
+                )
+              : IconButton(
+                  onPressed: () {
+                    var screen =
+                        MyChannelScreen(title: appData.dTubeUserData!.username);
+                    Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (c) => screen));
+                  },
+                  icon: const Icon(Icons.person),
+                )
+        ],
       ),
       drawer: const DrawerMenu(),
       body: TabBarView(

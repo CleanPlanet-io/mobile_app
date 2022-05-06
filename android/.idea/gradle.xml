@@ -12,6 +12,7 @@
           <set>
             <option value="/Applications/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/better_player-0.0.82/android" />
             <option value="/Applications/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_inappwebview-5.4.3/android" />
+            <option value="/Applications/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_secure_storage-5.0.2/android" />
             <option value="/Applications/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_android-2.0.13/android" />
             <option value="/Applications/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/url_launcher_android-6.0.16/android" />
             <option value="/Applications/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/wakelock-0.6.1+2/android" />
